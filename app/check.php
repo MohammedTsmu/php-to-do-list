@@ -1,13 +1,13 @@
 <?php
 
-if(isset($_POST['id'])){
+if (isset($_POST['id'])) {
     require '../db_conn.php';
 
     $id = $_POST['id'];
 
-    if(empty($id)){
-       echo 'error';
-    }else {
+    if (empty($id)) {
+        echo 'error';
+    } else {
         $todos = $conn->prepare("SELECT id, checked FROM todos WHERE id=?");
         $todos->execute([$id]);
 
@@ -19,14 +19,14 @@ if(isset($_POST['id'])){
 
         $res = $conn->query("UPDATE todos SET checked=$uChecked WHERE id=$uId");
 
-        if($res){
+        if ($res) {
             echo $checked;
-        }else {
+        } else {
             echo "error";
         }
         $conn = null;
         exit();
     }
-}else {
+} else {
     header("Location: ../index.php?mess=error");
 }
